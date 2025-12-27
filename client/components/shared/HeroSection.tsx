@@ -1,43 +1,40 @@
-"use client";
-
 import { Play } from "lucide-react";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 
-export default function HeroSection() {
+const HeroSection = () => {
   return (
     <section className="relative overflow-hidden bg-background text-foreground">
-      {/* Pattern background */}
-      <div className="absolute inset-0 z-0">
+      {/* Background */}
+      <div className="absolute inset-0 pointer-events-none">
         <div
           className="
             absolute inset-0
             bg-[linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)]
-            bg-[size:20px_30px]
-            opacity-60
-            [mask-image:radial-gradient(ellipse_70%_60%_at_50%_0%,#000_60%,transparent_100%)]
-            [-webkit-mask-image:radial-gradient(ellipse_70%_60%_at_50%_0%,#000_60%,transparent_100%)]
+            bg-size-[24px_24px]
+            opacity-40
+            mask-[radial-gradient(ellipse_70%_60%_at_50%_0%,#000_60%,transparent_100%)]
           "
         />
-
-        {/* Depth overlay (important, don’t skip) */}
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/80 to-background" />
+        <div className="absolute inset-0 bg-linear-to-b from-background via-background/90 to-background" />
       </div>
 
       {/* Content */}
-      <div className="relative z-10 mx-auto max-w-7xl px-4 py-24 sm:py-32">
+      <div className="relative mx-auto max-w-7xl px-4 py-24 sm:py-32">
         <div className="flex flex-col items-center text-center">
-          {/* Announcement pill */}
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-muted px-4 py-1.5 text-xs font-medium">
-            <span className="rounded-full bg-primary px-2 py-0.5 text-primary-foreground">
+          {/* Announcement */}
+          <div className="mb-6 flex items-center gap-2 rounded-full border border-border bg-muted px-3 py-1 text-xs font-medium">
+            <Badge variant="default" className="px-2 py-0.5">
               New
-            </span>
+            </Badge>
             <span className="text-muted-foreground">
               Get all your leads in one place
             </span>
           </div>
 
           {/* Heading */}
-          <h1 className="max-w-4xl font-semibold tracking-tight text-[clamp(2rem,4vw,3.5rem)] leading-tight">
+          <h1 className="max-w-4xl text-balance font-semibold tracking-tight text-[clamp(2.25rem,4vw,3.5rem)] leading-tight">
             The next-gen Helpdesk designed for efficiency.
           </h1>
 
@@ -49,17 +46,18 @@ export default function HeroSection() {
           </p>
 
           {/* CTA */}
-          <div className="mt-10 flex flex-col sm:flex-row items-center gap-4">
-            <Link
-              href="/generate-docs"
-              className="inline-flex items-center gap-3 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:opacity-90 transition"
-            >
-              <Play className="h-4 w-4" />
-              Get started
-            </Link>
+          <div className="mt-10">
+            <Button asChild size="lg" className="rounded-full gap-2">
+              <Link href="/generate-docs">
+                <Play className="h-4 w-4" />
+                Get started
+              </Link>
+            </Button>
           </div>
         </div>
       </div>
     </section>
   );
-}
+};
+
+export default HeroSection;

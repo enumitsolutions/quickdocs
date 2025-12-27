@@ -1,4 +1,7 @@
 import Link from "next/link";
+import { Separator } from "@/components/ui/separator";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 
 /* ---------------- CONFIG ---------------- */
 
@@ -10,97 +13,94 @@ const TOP_NAV_LINKS = [
 ];
 
 const FOOTER_LINKS = {
-  About: [
+  Product: [
     { label: "Pricing", href: "/pricing" },
-    { label: "Contact", href: "/contact" },
-    { label: "FAQ", href: "/faq" },
+    { label: "Features", href: "/features" },
+    { label: "Changelog", href: "/changelog" },
+  ],
+  Resources: [
+    { label: "Docs", href: "/docs" },
     { label: "Blog", href: "/blog" },
+    { label: "FAQ", href: "/faq" },
   ],
-  Support: [
-    { label: "Help Center", href: "#" },
-    { label: "Terms", href: "#" },
-    { label: "Privacy", href: "#" },
-    { label: "Security", href: "#" },
-  ],
-  Community: [
-    { label: "Forum", href: "#" },
-    { label: "Events", href: "#" },
-    { label: "Partners", href: "#" },
-    { label: "Careers", href: "#" },
+  Company: [
+    { label: "About", href: "/about" },
+    { label: "Careers", href: "/careers" },
+    { label: "Contact", href: "/contact" },
   ],
   Legal: [
-    { label: "Investors", href: "#" },
-    { label: "Terms of Use", href: "#" },
-    { label: "Privacy Policy", href: "#" },
-    { label: "Cookie Policy", href: "#" },
+    { label: "Privacy", href: "/privacy" },
+    { label: "Terms", href: "/terms" },
+    { label: "Security", href: "/security" },
   ],
 };
 
 const SOCIAL_LINKS = [
-  { label: "LinkedIn", href: "#" },
-  { label: "Facebook", href: "#" },
   { label: "Twitter", href: "#" },
+  { label: "GitHub", href: "#" },
+  { label: "LinkedIn", href: "#" },
 ];
 
 /* ---------------- COMPONENT ---------------- */
 
 const Footer = () => {
   return (
-    <footer className="relative overflow-hidden bg-background text-foreground">
-      {/* Glow background */}
+    <footer className="relative overflow-hidden bg-background">
+      {/* Background glow */}
       <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute left-1/2 top-1/2  -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/20 blur-[180px]" />
-        <div className="absolute inset-0 bg-linear-to-b from-background via-background/90 to-background" />
+        <div className="absolute left-1/2 top-1/2 h-105 w-105 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/15 blur-[180px]" />
+        <div className="absolute inset-0 bg-linear-to-b from-background via-background/95 to-background" />
       </div>
 
       <div className="mx-auto max-w-7xl px-4 py-20">
         {/* CTA + Top Nav */}
-        <div className="flex flex-col gap-10 border-b border-border pb-16">
-          <div className="grid gap-10 lg:grid-cols-2 items-center">
-            {/* CTA */}
-            <div>
-              <span className="text-xs uppercase tracking-wide text-muted-foreground">
-                Contact Us
-              </span>
+        <div className="grid gap-12 lg:grid-cols-2 items-center">
+          {/* CTA */}
+          <div>
+            <Badge variant="secondary">Get started</Badge>
 
-              <h2 className="mt-3 max-w-xl text-3xl sm:text-4xl font-semibold tracking-tight">
-                Interested in working together, trying QuickDock, or just
-                learning more?
-              </h2>
+            <h2 className="mt-4 max-w-xl text-3xl sm:text-4xl font-semibold tracking-tight">
+              Generate documentation directly from your codebase
+            </h2>
 
-              <p className="mt-4 text-sm text-muted-foreground">
-                Reach out directly at{" "}
-                <a
-                  href="mailto:contact@quickdock.io"
-                  className="underline underline-offset-4 hover:text-foreground"
-                >
-                  contact@quickdock.io
-                </a>
-              </p>
+            <p className="mt-4 max-w-lg text-sm text-muted-foreground">
+              Upload a ZIP or connect a GitHub repo and get clean, readable docs
+              in minutes — no setup required.
+            </p>
+
+            <div className="mt-6 flex gap-3">
+              <Button asChild>
+                <Link href="/generate-docs">Try Quick Docs</Link>
+              </Button>
+              <Button asChild variant="outline">
+                <Link href="/pricing">View pricing</Link>
+              </Button>
             </div>
-
-            {/* Top Navigation */}
-            <nav className="flex flex-wrap gap-6 text-sm text-muted-foreground lg:justify-end">
-              {TOP_NAV_LINKS.map((link) => (
-                <Link
-                  key={link.label}
-                  href={link.href}
-                  className="hover:text-foreground transition"
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </nav>
           </div>
+
+          {/* Top Navigation */}
+          <nav className="flex flex-wrap gap-6 text-sm text-muted-foreground lg:justify-end">
+            {TOP_NAV_LINKS.map((link) => (
+              <Link
+                key={link.label}
+                href={link.href}
+                className="hover:text-foreground transition"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </nav>
         </div>
 
-        {/* Brand (FULL WIDTH) */}
-        <div className="mt-20 text-center">
-          <h1 className="w-full text-[clamp(2.5rem,8vw,6rem)] font-extrabold tracking-tight">
+        <Separator className="my-16" />
+
+        {/* Brand */}
+        <div className="text-center">
+          <h1 className="text-[clamp(2.25rem,7vw,5rem)] font-extrabold tracking-tight">
             QUICK DOCS
           </h1>
           <p className="mx-auto mt-4 max-w-xl text-sm text-muted-foreground">
-            Build faster, ship smarter, and manage everything from one platform.
+            Documentation that actually reflects your code.
           </p>
         </div>
 
@@ -125,10 +125,12 @@ const Footer = () => {
           ))}
         </div>
 
+        <Separator className="my-12" />
+
         {/* Bottom Bar */}
-        <div className="mt-16 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-border pt-8 text-xs text-muted-foreground">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
           <span>
-            © {new Date().getFullYear()} <strong>QuickDock</strong>. All rights
+            © {new Date().getFullYear()} <strong>Quick Docs</strong>. All rights
             reserved.
           </span>
 

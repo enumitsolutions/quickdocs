@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import { Button } from "../ui/button";
 
 const NAV_LINKS = [
   { label: "Home", href: "/" },
@@ -52,13 +53,13 @@ const Navbar = () => {
           </div>
 
           {/* Mobile menu button */}
-          <button
+          <Button
             onClick={() => setOpen(true)}
             className="md:hidden"
             aria-label="Open menu"
           >
             <Menu className="h-6 w-6" />
-          </button>
+          </Button>
         </div>
       </div>
 
@@ -68,9 +69,9 @@ const Navbar = () => {
           {/* Top */}
           <div className="flex items-center justify-between border-b border-border px-4 py-4">
             <span className="text-lg font-bold">QuickDock</span>
-            <button onClick={() => setOpen(false)} aria-label="Close menu">
+            <Button onClick={() => setOpen(false)} aria-label="Close menu">
               <X className="h-6 w-6" />
-            </button>
+            </Button>
           </div>
 
           {/* Links */}

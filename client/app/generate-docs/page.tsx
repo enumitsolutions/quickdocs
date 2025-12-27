@@ -1,4 +1,4 @@
-import ChatModeTogglePage from "@/components/docs_comps/ChatModeTogglePage";
+import ChatModeTogglePage from "@/components/docs_comps/ChatSection";
 import React from "react";
 
 const page = () => {

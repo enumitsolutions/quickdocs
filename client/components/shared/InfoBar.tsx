@@ -18,7 +18,7 @@ const InfoBar = () => {
               New
             </span>
 
-            <span className="hidden sm:inline">
+            <span className="hidden sm:inline text-primary-foreground">
               Now you can save you progress in the local storage
             </span>
 

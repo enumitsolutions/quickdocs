@@ -1,4 +1,14 @@
 import { Check } from "lucide-react";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 
 interface PricingCardProps {
   name: string;
@@ -20,77 +30,61 @@ const PricingCard = ({
   cta,
 }: PricingCardProps) => {
   return (
-    <div
-      className={`
-        group relative flex flex-col rounded-2xl border
-        p-6 transition-all duration-300
-        ${
-          highlighted
-            ? "border-primary/30 bg-primary text-primary-foreground shadow-xl scale-[1.03]"
-            : "border-border bg-background border-primary/30"
-        }
-      `}
-    >
-      {/* Hover glow */}
-      <div className="pointer-events-none absolute inset-0 -z-10 opacity-0 group-hover:opacity-100 transition">
-        <div className="absolute inset-0 rounded-2xl bg-primary/20 blur-2xl" />
-      </div>
-
-      {/* Badge */}
-      {badge && (
-        <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-background px-3 py-1 text-xs font-medium text-primary border border-border">
-          {badge}
-        </span>
+    <div className="relative">
+      {/* Glow ONLY when highlighted */}
+      {highlighted && (
+        <div className="pointer-events-none absolute inset-0 -z-10">
+          <div className="absolute inset-0 rounded-2xl bg-primary/25 blur-3xl" />
+        </div>
       )}
 
-      {/* Header */}
-      <div className="text-center">
-        <h3 className="text-lg font-semibold">{name}</h3>
-        <div className="mt-4">
-          <span className="text-4xl font-bold">{price}</span>
-          <span
-            className={`block mt-1 text-sm ${
-              highlighted
-                ? "text-primary-foreground/80"
-                : "text-muted-foreground"
-            }`}
-          >
-            {subtitle}
-          </span>
-        </div>
-      </div>
-
-      {/* Divider */}
-      <div
-        className={`my-6 h-px ${
-          highlighted ? "bg-primary-foreground/20" : "bg-border"
-        }`}
-      />
-
-      {/* Features */}
-      <ul className="space-y-3 text-sm flex-1">
-        {features.map((feature) => (
-          <li key={feature} className="flex items-start gap-2">
-            <Check
-              className={`h-4 w-4 mt-0.5 ${
-                highlighted ? "text-background" : "text-primary"
-              }`}
-            />
-            <span>{feature}</span>
-          </li>
-        ))}
-      </ul>
-
-      {/* CTA */}
-      <button
-        className={`mt-8 w-full rounded-lg px-4 py-2 text-sm font-medium transition ${
-          highlighted
-            ? "bg-background text-primary hover:opacity-90"
-            : "bg-primary text-primary-foreground hover:opacity-90"
-        }`}
+      <Card
+        className={`relative flex flex-col rounded-2xl transition
+          ${
+            highlighted
+              ? "ring-2 ring-primary shadow-xl scale-[1.03]"
+              : "border-border"
+          }
+        `}
       >
-        {cta}
-      </button>
+        {badge && (
+          <Badge
+            className="absolute -top-3 left-1/2 -translate-x-1/2"
+            variant="secondary"
+          >
+            {badge}
+          </Badge>
+        )}
+
+        <CardHeader className="text-center">
+          <CardTitle className="text-lg">{name}</CardTitle>
+          <div className="mt-4">
+            <span className="text-4xl font-bold">{price}</span>
+            <CardDescription className="mt-1">{subtitle}</CardDescription>
+          </div>
+        </CardHeader>
+
+        <CardContent className="flex-1">
+          <ul className="space-y-3 text-sm">
+            {features.map((feature) => (
+              <li key={feature} className="flex items-start gap-2">
+                <Check className="mt-0.5 h-4 w-4 text-primary" />
+                <span>{feature}</span>
+              </li>
+            ))}
+          </ul>
+        </CardContent>
+
+        <CardFooter>
+          <Button
+            className="w-full cursor-pointer"
+            size="lg"
+            variant={highlighted ? "default" : "secondary"}
+          >
+            {cta}
+          </Button>
+        </CardFooter>
+      </Card>
     </div>
   );
 };

@@ -1,48 +1,61 @@
 import { LucideIcon } from "lucide-react";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 
 interface WhyChooseCardProps {
   title: string;
   description: string;
   icon: LucideIcon;
-  rotate?: string;
-  translate?: string;
+  eyebrow?: string; // small supporting text
 }
 
 const WhyChooseCard = ({
   title,
   description,
   icon: Icon,
-  rotate = "",
-  translate = "",
+  eyebrow = "Why it matters",
 }: WhyChooseCardProps) => {
   return (
-    <div
-      className={`
-        group relative rounded-2xl border border-primary/30
-        bg-background p-6
-        shadow-[0_20px_40px_rgba(0,0,0,0.08)]
-        transition-all duration-300
-        hover:-translate-y-2 hover:rotate-0
-        ${rotate} ${translate}
-      `}
-    >
-      {/* Subtle glow */}
-      <div className="pointer-events-none absolute inset-0 -z-10 opacity-0 group-hover:opacity-100 transition">
-        <div className="absolute inset-0 rounded-2xl bg-primary/15 blur-2xl" />
+    <div className="relative group">
+      {/* Glow – only on hover/focus */}
+      <div className="pointer-events-none absolute inset-0 -z-10 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition">
+        <div className="absolute inset-0 rounded-2xl bg-primary/20 blur-3xl" />
       </div>
 
-      {/* Icon */}
-      <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary">
-        <Icon className="h-5 w-5" />
-      </div>
+      <Card
+        className="
+          h-full rounded-2xl border-primary/30
+          transition-all duration-300
+          hover:-translate-y-1
+          hover:shadow-xl
+        "
+      >
+        <CardHeader className="pb-2">
+          {/* Icon */}
+          <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary">
+            <Icon className="h-5 w-5" />
+          </div>
 
-      {/* Title */}
-      <h3 className="text-lg font-semibold tracking-tight">{title}</h3>
+          {/* Eyebrow */}
+          <span className="text-xs font-medium uppercase tracking-wide text-primary">
+            {eyebrow}
+          </span>
 
-      {/* Description */}
-      <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
-        {description}
-      </p>
+          {/* Title */}
+          <CardTitle className="mt-1 text-lg tracking-tight">{title}</CardTitle>
+        </CardHeader>
+
+        <CardContent>
+          <p className="text-sm leading-relaxed text-muted-foreground">
+            {description}
+          </p>
+
+          {/* Supporting bullet */}
+          <div className="mt-4 flex items-center gap-2 text-xs text-muted-foreground">
+            <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+            <span>Built for real-world developer workflows</span>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 };
