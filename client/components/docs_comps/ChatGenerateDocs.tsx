@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { UploadCloud, Github, FileText, CheckCircle2 } from "lucide-react";
 
 import {
@@ -16,6 +16,8 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import Spinner from "../shared/Spinner";
+import { useDocsStore } from "@/store/docsStore";
+import { useRouter } from "next/navigation";
 
 const ChatGenerateDocs = () => {
   const [githubUrl, setGithubUrl] = useState("");
@@ -23,6 +25,10 @@ const ChatGenerateDocs = () => {
   const [isGenerating, setIsGenerating] = useState(false);
 
   const canGenerate = Boolean(zipFile || githubUrl);
+
+  // =============== GLOBAL STORES ===========================
+
+  const { uploading, uploadProjectZip, projectId } = useDocsStore();
 
   const handleGenerate = async () => {
     if (!canGenerate) return;
@@ -36,6 +42,20 @@ const ChatGenerateDocs = () => {
 
     console.log("GENERATED DATA IS : ", zipFile);
   };
+
+  const handleZipUpload = async () => {
+    console.log("ZIP", zipFile);
+    await uploadProjectZip(zipFile);
+  };
+
+  // ======= Navigate to Ask Now ==============
+
+  const router = useRouter();
+  useEffect(() => {
+    if (projectId) {
+      router.push("/generate-docs/ask");
+    }
+  }, [projectId, router]);
 
   return (
     <div className="mx-auto max-w-6xl">
@@ -83,6 +103,24 @@ const ChatGenerateDocs = () => {
                   <span className="font-medium">{zipFile.name}</span>
                 </div>
               )}
+
+              <Button
+                onClick={handleZipUpload}
+                disabled={uploading}
+                className="mt-2 cursor-pointer"
+              >
+                {uploading ? (
+                  <>
+                    <Spinner />
+                    Uploading
+                  </>
+                ) : (
+                  <>
+                    <UploadCloud className="w-4 h-4" />
+                    Upload
+                  </>
+                )}
+              </Button>
             </CardContent>
           </Card>
 
